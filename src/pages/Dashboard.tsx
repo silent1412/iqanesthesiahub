@@ -83,14 +83,14 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="ios-card mt-3 overflow-hidden">
-          <ul className="divide-y divide-black/[0.06]">
+          <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
             {LIBRARY_SECTIONS.map((section) => (
               <li key={section.id}>
                 <Link
                   to={`/library?section=${section.id}`}
-                  className="flex min-h-11 items-center gap-3.5 px-4 py-3 transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+                  className="flex min-h-11 items-center gap-3.5 px-4 py-3 transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                 >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-[#0a355e]/[0.08] text-[15px] font-extrabold text-[#005eb8]">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-[#0a355e]/[0.08] dark:bg-white/[0.09] text-[15px] font-extrabold text-[#005eb8] dark:text-[#5eb3f6]">
                     {section.title
                       .split(/\s+/)
                       .slice(0, 2)

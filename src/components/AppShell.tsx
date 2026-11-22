@@ -156,8 +156,8 @@ export default function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Mobile top bar — translucent, iOS style */}
-      <div className="pt-safe fixed inset-x-0 top-0 z-40 bg-[#eef3f8]/80 backdrop-blur-xl md:hidden">
-        <div className="flex h-12 items-center justify-center border-b border-black/[0.06]">
+      <div className="pt-safe fixed inset-x-0 top-0 z-40 bg-[#eef3f8]/80 dark:bg-[#0b1420]/80 backdrop-blur-xl md:hidden">
+        <div className="flex h-12 items-center justify-center border-b border-black/[0.06] dark:border-white/[0.10]">
           <p className="text-[17px] font-bold tracking-tight text-foreground">
             IQ Anaesthesia Hub
           </p>
@@ -168,7 +168,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
               logout()
               navigate('/login')
             }}
-            className="absolute right-2 flex size-9 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="absolute right-2 flex size-9 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-black/5 dark:hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             <LogOut className="size-[18px]" aria-hidden />
           </button>
@@ -178,7 +178,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       {/* Mobile bottom tab bar — translucent, iOS style */}
       <nav
         aria-label="Main navigation"
-        className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.08] bg-white/85 backdrop-blur-xl md:hidden"
+        className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.08] dark:border-white/[0.12] bg-white/85 dark:bg-[#0d1826]/85 backdrop-blur-xl md:hidden"
       >
         <div className="flex items-stretch justify-around">
           {items.map(({ to, label, icon: Icon, end }) => (
@@ -188,7 +188,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
               end={end}
               className={({ isActive }) =>
                 `flex min-h-12 flex-1 flex-col items-center justify-center gap-0.5 pb-0.5 pt-1.5 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring ${
-                  isActive ? 'text-[#005eb8]' : 'text-[#8e8e93]'
+                  isActive ? 'text-[#005eb8] dark:text-[#5eb3f6]' : 'text-[#8e8e93]'
                 }`
               }
             >

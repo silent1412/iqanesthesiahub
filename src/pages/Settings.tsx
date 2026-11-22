@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
-import { ChevronRight, LogOut, Pencil } from 'lucide-react'
+import { ChevronRight, LogOut, Moon, Pencil } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
 import {
   daysLeft,
@@ -12,7 +12,7 @@ import {
 } from '@/lib/store'
 
 const STATUS_TEXT: Record<MemberStatus, string> = {
-  active: 'text-[#0b7a5e]',
+  active: 'text-[#0b7a5e] dark:text-[#34d399]',
   expiring: 'text-warning',
   expired: 'text-destructive',
   revoked: 'text-muted-foreground',
@@ -47,7 +47,7 @@ function Group({
         {title}
       </h2>
       <div className="ios-card mt-2 overflow-hidden">
-        <div className="divide-y divide-black/[0.06]">{children}</div>
+        <div className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">{children}</div>
       </div>
     </section>
   )
@@ -63,10 +63,10 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 const inputClass =
-  'h-11 w-full rounded-xl border-0 bg-black/[0.05] px-3.5 text-[15px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring'
+  'h-11 w-full rounded-xl border-0 bg-black/[0.05] dark:bg-white/[0.09] px-3.5 text-[15px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring'
 
 export default function Settings() {
-  const { user, prefs, setPref, updateMember, changePassword, logout } = useAuth()
+  const { user, prefs, setPref, updateMember, changePassword, logout, theme, setTheme } = useAuth()
   const navigate = useNavigate()
 
   const [editingName, setEditingName] = useState(false)
@@ -118,7 +118,7 @@ export default function Settings() {
       {/* Profile */}
       <Group title="Profile">
         <div className="flex items-center gap-3.5 px-4 py-3.5">
-          <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#0a355e]/10 text-sm font-bold text-[#005eb8]">
+          <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[#0a355e]/10 dark:bg-white/[0.09] text-sm font-bold text-[#005eb8] dark:text-[#5eb3f6]">
             {initials(user.name)}
           </div>
           {editingName ? (
@@ -141,7 +141,7 @@ export default function Settings() {
               <button
                 type="button"
                 onClick={() => setEditingName(false)}
-                className="h-10 shrink-0 cursor-pointer rounded-full bg-black/[0.05] px-4 text-xs font-bold text-foreground transition-colors hover:bg-black/[0.09] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                className="h-10 shrink-0 cursor-pointer rounded-full bg-black/[0.05] dark:bg-white/[0.09] px-4 text-xs font-bold text-foreground transition-colors hover:bg-black/[0.09] dark:hover:bg-white/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               >
                 Cancel
               </button>
@@ -160,7 +160,7 @@ export default function Settings() {
                   setNameDraft(user.name)
                   setEditingName(true)
                 }}
-                className="inline-flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-[#0a355e]/[0.08] px-3 text-xs font-bold text-[#005eb8] transition-colors hover:bg-[#0a355e]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                className="inline-flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-full bg-[#0a355e]/[0.08] dark:bg-white/[0.09] px-3 text-xs font-bold text-[#005eb8] dark:text-[#5eb3f6] transition-colors hover:bg-[#0a355e]/[0.14] dark:hover:bg-white/[0.15] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               >
                 <Pencil className="size-3.5" aria-hidden />
                 Edit
@@ -198,7 +198,7 @@ export default function Settings() {
           <button
             type="button"
             onClick={() => setChangingPw(true)}
-            className="flex min-h-11 w-full cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+            className="flex min-h-11 w-full cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
           >
             <span className="text-[15px] font-medium text-foreground">Change password</span>
             <ChevronRight className="size-4 text-muted-foreground/70" aria-hidden />
@@ -247,13 +247,33 @@ export default function Settings() {
                   setNewPw('')
                   setConfirmPw('')
                 }}
-                className="h-11 cursor-pointer rounded-full bg-black/[0.05] px-5 text-sm font-bold text-foreground transition-colors hover:bg-black/[0.09] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                className="h-11 cursor-pointer rounded-full bg-black/[0.05] dark:bg-white/[0.09] px-5 text-sm font-bold text-foreground transition-colors hover:bg-black/[0.09] dark:hover:bg-white/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               >
                 Cancel
               </button>
             </div>
           </form>
         )}
+      </Group>
+
+      {/* Appearance */}
+      <Group title="Appearance">
+        <div className="flex min-h-11 items-center justify-between gap-4 px-4 py-3">
+          <div className="flex items-center gap-3">
+            <Moon className="size-[18px] text-[#005eb8] dark:text-[#5eb3f6]" strokeWidth={1.8} aria-hidden />
+            <div>
+              <p className="text-[15px] font-medium text-foreground">Dark Mode</p>
+              <p className="text-[13px] font-medium text-muted-foreground">
+                Easier on the eyes in low light
+              </p>
+            </div>
+          </div>
+          <Switch
+            checked={theme === 'dark'}
+            onCheckedChange={(v) => setTheme(v ? 'dark' : 'light')}
+            aria-label="Dark mode"
+          />
+        </div>
       </Group>
 
       {/* Notifications */}
@@ -300,7 +320,7 @@ export default function Settings() {
             logout()
             navigate('/login')
           }}
-          className="flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 px-4 py-3 text-[15px] font-semibold text-destructive transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+          className="flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 px-4 py-3 text-[15px] font-semibold text-destructive transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
         >
           <LogOut className="size-4" aria-hidden />
           Sign Out

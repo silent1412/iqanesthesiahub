@@ -18,7 +18,7 @@ const HIGHLIGHTS = [
 ]
 
 const inputClass =
-  'h-12 w-full rounded-xl border-0 bg-black/[0.05] px-4 text-[16px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring'
+  'h-12 w-full rounded-xl border-0 bg-black/[0.05] dark:bg-white/[0.09] px-4 text-[16px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring'
 
 export default function Login() {
   const { login } = useAuth()
@@ -133,7 +133,7 @@ export default function Login() {
             Demo accounts — tap to fill
           </p>
           <div className="ios-card mt-2 overflow-hidden">
-            <ul className="divide-y divide-black/[0.06]">
+            <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
               {DEMO_ACCOUNTS.map((acc) => (
                 <li key={acc.email}>
                   <button
@@ -143,7 +143,7 @@ export default function Login() {
                       setPassword(acc.password)
                       setError(null)
                     }}
-                    className="flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+                    className="flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                   >
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[15px] font-semibold text-foreground">

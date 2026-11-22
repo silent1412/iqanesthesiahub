@@ -28,6 +28,9 @@ const MEMBERS_KEY = 'iqa_members_v1'
 const SESSION_KEY = 'iqa_session_v1'
 const LINKS_KEY = 'iqa_links_v1'
 const PREFS_KEY = 'iqa_prefs_v1'
+const THEME_KEY = 'iqa_theme_v1'
+
+export type Theme = 'light' | 'dark'
 export const DAY_MS = 86_400_000
 
 export function addMonths(date: Date, months: number): Date {
@@ -122,6 +125,8 @@ interface AuthContextValue {
   members: Member[]
   links: Record<string, string>
   prefs: MemberPrefs
+  theme: Theme
+  setTheme: (theme: Theme) => void
   login: (email: string, password: string) => { ok: boolean; error?: string }
   logout: () => void
   addMember: (input: {
@@ -154,6 +159,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [sessionId, setSessionId] = useState<string | null>(() =>
     localStorage.getItem(SESSION_KEY),
   )
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem(THEME_KEY)
+    if (saved === 'light' || saved === 'dark') return saved
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+    localStorage.setItem(THEME_KEY, theme)
+  }, [theme])
 
   useEffect(() => {
     localStorage.setItem(MEMBERS_KEY, JSON.stringify(members))
@@ -291,6 +306,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       members,
       links,
       prefs,
+      theme,
+      setTheme,
       login,
       logout,
       addMember,
@@ -307,6 +324,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       members,
       links,
       prefs,
+      theme,
       login,
       logout,
       addMember,

@@ -35,6 +35,38 @@
     --sidebar-border: 209 50% 30%;
     --sidebar-ring: 208 60% 97%;
   }
+
+  .dark {
+    --background: 213 50% 7%;         /* deep navy-black */
+    --foreground: 208 45% 95%;
+    --card: 211 35% 14%;              /* elevated dark card */
+    --card-foreground: 208 45% 95%;
+    --popover: 211 35% 14%;
+    --popover-foreground: 208 45% 95%;
+    --primary: 209 70% 32%;           /* brighter navy for dark surfaces */
+    --primary-foreground: 208 60% 97%;
+    --secondary: 210 25% 20%;
+    --secondary-foreground: 208 45% 95%;
+    --muted: 210 22% 18%;
+    --muted-foreground: 213 14% 62%;
+    --accent: 210 25% 20%;
+    --accent-foreground: 208 45% 95%;
+    --destructive: 3 100% 65%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 35 100% 55%;
+    --warning-foreground: 48 60% 97%;
+    --border: 210 22% 22%;
+    --input: 210 20% 26%;
+    --ring: 206 85% 55%;
+    --sidebar-background: 213 55% 10%;
+    --sidebar-foreground: 208 45% 90%;
+    --sidebar-primary: 208 60% 97%;
+    --sidebar-primary-foreground: 213 55% 10%;
+    --sidebar-accent: 210 35% 18%;
+    --sidebar-accent-foreground: 208 60% 97%;
+    --sidebar-border: 210 35% 20%;
+    --sidebar-ring: 208 60% 97%;
+  }
 }
 
 @layer base {

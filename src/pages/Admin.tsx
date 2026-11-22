@@ -13,10 +13,10 @@ import {
 } from '@/lib/store'
 
 const STATUS_STYLE: Record<MemberStatus, string> = {
-  active: 'bg-[#12b886]/15 text-[#0b7a5e]',
+  active: 'bg-[#12b886]/15 text-[#0b7a5e] dark:text-[#34d399]',
   expiring: 'bg-warning/10 text-warning',
   expired: 'bg-destructive/10 text-destructive',
-  revoked: 'bg-black/[0.06] text-muted-foreground',
+  revoked: 'bg-black/[0.06] dark:bg-white/[0.10] text-muted-foreground',
 }
 
 const STATUS_LABEL: Record<MemberStatus, string> = {
@@ -37,7 +37,7 @@ function StatusBadge({ status }: { status: MemberStatus }) {
 }
 
 const inputClass =
-  'h-11 w-full rounded-xl border-0 bg-black/[0.05] px-3.5 text-[15px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring'
+  'h-11 w-full rounded-xl border-0 bg-black/[0.05] dark:bg-white/[0.09] px-3.5 text-[15px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring'
 
 function MemberActions({ m, isSelf }: { m: Member; isSelf: boolean }) {
   const { extendMember, setRevoked, removeMember } = useAuth()
@@ -49,7 +49,7 @@ function MemberActions({ m, isSelf }: { m: Member; isSelf: boolean }) {
           extendMember(m.id, 6)
           toast.success(`${m.name} extended by 6 months`)
         }}
-        className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-[#0a355e]/[0.08] px-3 text-xs font-bold text-[#005eb8] transition-colors hover:bg-[#0a355e]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-[#0a355e]/[0.08] dark:bg-white/[0.09] px-3 text-xs font-bold text-[#005eb8] dark:text-[#5eb3f6] transition-colors hover:bg-[#0a355e]/[0.14] dark:hover:bg-white/[0.15] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
         <RotateCcw className="size-3.5" aria-hidden />
         +6 months
@@ -62,7 +62,7 @@ function MemberActions({ m, isSelf }: { m: Member; isSelf: boolean }) {
               setRevoked(m.id, !m.revoked)
               toast.success(m.revoked ? `${m.name} reinstated` : `${m.name}'s access revoked`)
             }}
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-black/[0.05] px-3 text-xs font-bold text-foreground transition-colors hover:bg-black/[0.09] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-black/[0.05] dark:bg-white/[0.09] px-3 text-xs font-bold text-foreground transition-colors hover:bg-black/[0.09] dark:hover:bg-white/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             {m.revoked ? (
               <CircleCheck className="size-3.5" aria-hidden />
@@ -150,7 +150,7 @@ function MembersTab() {
           <div
             role="radiogroup"
             aria-label="Membership plan"
-            className="flex h-11 rounded-xl bg-black/[0.05] p-0.5"
+            className="flex h-11 rounded-xl bg-black/[0.05] dark:bg-white/[0.09] p-0.5"
           >
             {([6, 12] as PlanMonths[]).map((m) => (
               <button
@@ -161,7 +161,7 @@ function MembersTab() {
                 onClick={() => setPlan(m)}
                 className={`flex-1 cursor-pointer rounded-[10px] text-sm font-semibold transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
                   plan === m
-                    ? 'bg-white text-foreground shadow-sm'
+                    ? 'bg-white dark:bg-white/[0.14] text-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -219,7 +219,7 @@ function MembersTab() {
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full min-w-[720px] text-left text-sm">
             <thead>
-              <tr className="border-b border-black/[0.06] text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+              <tr className="border-b border-black/[0.06] dark:border-white/[0.10] text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
                 <th className="px-5 py-3.5">Member</th>
                 <th className="px-5 py-3.5">Plan</th>
                 <th className="px-5 py-3.5">Expires</th>
@@ -227,7 +227,7 @@ function MembersTab() {
                 <th className="px-5 py-3.5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-black/[0.06]">
+            <tbody className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
               {sorted.map((m) => {
                 const status = memberStatus(m)
                 return (
@@ -304,7 +304,7 @@ function LinksTab() {
             {section.title}
           </h2>
           <div className="ios-card mt-2 overflow-hidden">
-            <ul className="divide-y divide-black/[0.06]">
+            <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
               {section.items.map((item) => {
                 const saved = links[item.id] ?? ''
                 const draft = drafts[item.id] ?? saved
@@ -332,7 +332,7 @@ function LinksTab() {
                           }
                           placeholder="https://drive.google.com/…"
                           aria-label={`Google Drive link for ${item.title}`}
-                          className="h-10 w-full rounded-xl border-0 bg-black/[0.05] pl-9 pr-3 text-[13px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring"
+                          className="h-10 w-full rounded-xl border-0 bg-black/[0.05] dark:bg-white/[0.09] pl-9 pr-3 text-[13px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/70 focus-visible:ring-2 focus-visible:ring-ring"
                         />
                       </div>
                       <button
@@ -379,7 +379,7 @@ export default function Admin() {
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4">
         {(
           [
-            ['Active', stats.active, 'text-[#0b7a5e]'],
+            ['Active', stats.active, 'text-[#0b7a5e] dark:text-[#34d399]'],
             ['Expiring', stats.expiring, 'text-warning'],
             ['Expired', stats.expired, 'text-destructive'],
             ['Revoked', stats.revoked, 'text-muted-foreground'],
@@ -395,7 +395,7 @@ export default function Admin() {
       </div>
 
       {/* iOS segmented control */}
-      <div className="flex rounded-xl bg-black/[0.05] p-0.5 md:w-fit">
+      <div className="flex rounded-xl bg-black/[0.05] dark:bg-white/[0.09] p-0.5 md:w-fit">
         {(
           [
             ['members', 'Members'],
@@ -409,7 +409,7 @@ export default function Admin() {
             aria-pressed={tab === key}
             className={`h-9 flex-1 cursor-pointer rounded-[10px] px-5 text-sm font-semibold transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:flex-none ${
               tab === key
-                ? 'bg-white text-foreground shadow-sm'
+                ? 'bg-white dark:bg-white/[0.14] text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >

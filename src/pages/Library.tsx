@@ -84,7 +84,7 @@ export default function Library() {
             <button
               type="button"
               onClick={() => setParams({})}
-              className="h-9 shrink-0 cursor-pointer rounded-full bg-[#0a355e]/[0.08] px-3.5 text-[13px] font-bold text-[#005eb8] transition-colors hover:bg-[#0a355e]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              className="h-9 shrink-0 cursor-pointer rounded-full bg-[#0a355e]/[0.08] dark:bg-white/[0.09] px-3.5 text-[13px] font-bold text-[#005eb8] dark:text-[#5eb3f6] transition-colors hover:bg-[#0a355e]/[0.14] dark:hover:bg-white/[0.15] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               Show all
             </button>
@@ -101,7 +101,7 @@ export default function Library() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search titles and topics"
             aria-label="Search the library"
-            className="h-10 w-full rounded-full border-0 bg-black/[0.06] pl-10 pr-4 text-[15px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring"
+            className="h-10 w-full rounded-full border-0 bg-black/[0.06] dark:bg-white/[0.10] pl-10 pr-4 text-[15px] font-medium text-foreground outline-none transition-shadow placeholder:text-muted-foreground/80 focus-visible:ring-2 focus-visible:ring-ring"
           />
         </div>
         {selectedSection && (
@@ -132,7 +132,7 @@ export default function Library() {
               {section.title}
             </h2>
             <div className="ios-card mt-2 overflow-hidden">
-              <ul className="divide-y divide-black/[0.06]">
+              <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
                 {section.items.map((item) => {
                   const Icon = KIND_ICON[item.kind]
                   const url = links[item.id]
@@ -141,10 +141,10 @@ export default function Library() {
                       <button
                         type="button"
                         onClick={() => setSelected(item)}
-                        className="group flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+                        className="group flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                       >
                         <Icon
-                          className="size-[18px] shrink-0 text-[#005eb8]"
+                          className="size-[18px] shrink-0 text-[#005eb8] dark:text-[#5eb3f6]"
                           strokeWidth={1.8}
                           aria-hidden
                         />
@@ -175,7 +175,7 @@ export default function Library() {
       <Sheet open={selected !== null} onOpenChange={(open) => !open && setSelected(null)}>
         <SheetContent
           side="right"
-          className="flex w-full flex-col border-l-0 bg-white p-6 pt-safe sm:max-w-md"
+          className="flex w-full flex-col border-l-0 bg-white dark:bg-[#101c2a] p-6 pt-safe sm:max-w-md"
         >
           {selected && (
             <>
