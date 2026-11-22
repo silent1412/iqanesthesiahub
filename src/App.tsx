@@ -6,6 +6,7 @@ import Dashboard from '@/pages/Dashboard'
 import Library from '@/pages/Library'
 import Login from '@/pages/Login'
 import Renewal from '@/pages/Renewal'
+import Settings from '@/pages/Settings'
 
 export default function App() {
   const { user } = useAuth()
@@ -38,6 +39,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/library" element={<Library />} />
+        <Route path="/settings" element={<Settings />} />
         {user.role === 'admin' && <Route path="/admin" element={<Admin />} />}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

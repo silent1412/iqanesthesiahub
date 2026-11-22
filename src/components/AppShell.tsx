@@ -4,6 +4,7 @@ import {
   BookOpen,
   LayoutGrid,
   LogOut,
+  Settings as SettingsIcon,
   ShieldCheck,
   type LucideIcon,
 } from 'lucide-react'
@@ -57,6 +58,7 @@ function useNavItems(): NavItem[] {
     ...(user?.role === 'admin'
       ? [{ to: '/admin', label: 'Admin', icon: ShieldCheck, end: false }]
       : []),
+    { to: '/settings', label: 'Settings', icon: SettingsIcon, end: false },
   ]
 }
 

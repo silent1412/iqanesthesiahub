@@ -27,6 +27,7 @@ export interface Member {
 const MEMBERS_KEY = 'iqa_members_v1'
 const SESSION_KEY = 'iqa_session_v1'
 const LINKS_KEY = 'iqa_links_v1'
+const PREFS_KEY = 'iqa_prefs_v1'
 export const DAY_MS = 86_400_000
 
 export function addMonths(date: Date, months: number): Date {
@@ -109,10 +110,18 @@ function loadJSON<T>(key: string, fallback: () => T): T {
   return value
 }
 
+export interface MemberPrefs {
+  expiryReminders: boolean
+  newContentAlerts: boolean
+}
+
+const DEFAULT_PREFS: MemberPrefs = { expiryReminders: true, newContentAlerts: true }
+
 interface AuthContextValue {
   user: Member | null
   members: Member[]
   links: Record<string, string>
+  prefs: MemberPrefs
   login: (email: string, password: string) => { ok: boolean; error?: string }
   logout: () => void
   addMember: (input: {
@@ -125,6 +134,13 @@ interface AuthContextValue {
   setRevoked: (id: string, revoked: boolean) => void
   removeMember: (id: string) => void
   setLink: (itemId: string, url: string) => void
+  updateMember: (id: string, patch: { name?: string }) => void
+  changePassword: (
+    id: string,
+    current: string,
+    next: string,
+  ) => { ok: boolean; error?: string }
+  setPref: (key: keyof MemberPrefs, value: boolean) => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -132,6 +148,9 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [members, setMembers] = useState<Member[]>(() => loadJSON(MEMBERS_KEY, seedMembers))
   const [links, setLinks] = useState<Record<string, string>>(() => loadJSON(LINKS_KEY, () => ({})))
+  const [allPrefs, setAllPrefs] = useState<Record<string, MemberPrefs>>(() =>
+    loadJSON(PREFS_KEY, () => ({})),
+  )
   const [sessionId, setSessionId] = useState<string | null>(() =>
     localStorage.getItem(SESSION_KEY),
   )
@@ -143,6 +162,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem(LINKS_KEY, JSON.stringify(links))
   }, [links])
+
+  useEffect(() => {
+    localStorage.setItem(PREFS_KEY, JSON.stringify(allPrefs))
+  }, [allPrefs])
 
   const user = useMemo(
     () => members.find((m) => m.id === sessionId) ?? null,
@@ -224,11 +247,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
+  const updateMember = useCallback((id: string, patch: { name?: string }) => {
+    setMembers((prev) =>
+      prev.map((m) =>
+        m.id === id && patch.name?.trim() ? { ...m, name: patch.name.trim() } : m,
+      ),
+    )
+  }, [])
+
+  const changePassword = useCallback(
+    (id: string, current: string, next: string) => {
+      const member = members.find((m) => m.id === id)
+      if (!member) return { ok: false, error: 'Account not found.' }
+      if (member.password !== current)
+        return { ok: false, error: 'Current password is incorrect.' }
+      if (next.length < 6)
+        return { ok: false, error: 'New password must be at least 6 characters.' }
+      setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, password: next } : m)))
+      return { ok: true }
+    },
+    [members],
+  )
+
+  const prefs = useMemo<MemberPrefs>(
+    () => (user ? { ...DEFAULT_PREFS, ...allPrefs[user.id] } : DEFAULT_PREFS),
+    [user, allPrefs],
+  )
+
+  const setPref = useCallback(
+    (key: keyof MemberPrefs, value: boolean) => {
+      if (!user) return
+      setAllPrefs((prev) => ({
+        ...prev,
+        [user.id]: { ...DEFAULT_PREFS, ...prev[user.id], [key]: value },
+      }))
+    },
+    [user],
+  )
+
   const value = useMemo(
     () => ({
       user,
       members,
       links,
+      prefs,
       login,
       logout,
       addMember,
@@ -236,8 +298,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setRevoked,
       removeMember,
       setLink,
+      updateMember,
+      changePassword,
+      setPref,
     }),
-    [user, members, links, login, logout, addMember, extendMember, setRevoked, removeMember, setLink],
+    [
+      user,
+      members,
+      links,
+      prefs,
+      login,
+      logout,
+      addMember,
+      extendMember,
+      setRevoked,
+      removeMember,
+      setLink,
+      updateMember,
+      changePassword,
+      setPref,
+    ],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
