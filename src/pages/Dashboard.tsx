@@ -44,12 +44,6 @@ export default function Dashboard() {
 
   const status = memberStatus(user)
   const days = daysLeft(user)
-  const totalDays = Math.max(
-    1,
-    Math.round(
-      (new Date(user.expiresAt).getTime() - new Date(user.startedAt).getTime()) / 86_400_000,
-    ),
-  )
   const remainingFraction = 1 - planProgress(user)
   const tone = status === 'active' ? 'active' : status === 'expiring' ? 'expiring' : 'expired'
   const firstName = user.name.replace(/^Dr\.\s*/i, '').split(/\s+/)[0]
@@ -79,62 +73,6 @@ export default function Dashboard() {
           </p>
         </div>
       )}
-
-      {/* Subscription card — Apple Fitness-style ring card */}
-      <section className="rounded-3xl bg-[#0a355e] p-6 text-[#f2f7fc] shadow-lg shadow-[#0a355e]/20 md:p-8">
-        <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-[#8ecdf0]">
-            {user.planMonths}-month membership
-          </p>
-          <span className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider">
-            {status === 'active' ? 'Active' : 'Expiring'}
-          </span>
-        </div>
-
-        <div className="mt-5 flex items-center gap-6">
-          <div className="relative shrink-0">
-            <CountdownRing fraction={remainingFraction} size={112} stroke={9} tone={tone} />
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-[28px] font-bold tabular-nums leading-none">{days}</span>
-              <span className="mt-1 text-[9px] font-bold uppercase tracking-widest text-[#f2f7fc]/60">
-                days left
-              </span>
-            </div>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[22px] font-bold tabular-nums tracking-tight md:text-2xl">
-              {countdown.d}d {pad(countdown.h)}h {pad(countdown.m)}m {pad(countdown.s)}s
-            </p>
-            <p className="mt-1 text-[13px] font-medium text-[#f2f7fc]/60">
-              Live countdown to expiry
-            </p>
-            <div className="mt-4 h-1.5 w-full max-w-44 overflow-hidden rounded-full bg-white/15">
-              <div
-                className="h-full rounded-full bg-[#8ecdf0] transition-[width] duration-500 ease-out"
-                style={{ width: `${Math.round(planProgress(user) * 100)}%` }}
-              />
-            </div>
-            <p className="mt-1.5 text-[11px] font-semibold text-[#f2f7fc]/50">
-              {Math.round(planProgress(user) * 100)}% of {totalDays} days used
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-5">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[#f2f7fc]/45">
-              Started
-            </p>
-            <p className="mt-1 text-[15px] font-bold">{formatDate(user.startedAt)}</p>
-          </div>
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[#f2f7fc]/45">
-              Expires
-            </p>
-            <p className="mt-1 text-[15px] font-bold">{formatDate(user.expiresAt)}</p>
-          </div>
-        </div>
-      </section>
 
       {/* Library — iOS grouped rows */}
       <section>
@@ -173,6 +111,45 @@ export default function Dashboard() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Membership — compact summary card */}
+      <section>
+        <h2 className="px-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
+          Membership
+        </h2>
+        <div className="ios-card mt-2 flex items-center gap-4 !bg-[#0a355e] p-4 text-[#f2f7fc]">
+          <div className="relative shrink-0">
+            <CountdownRing fraction={remainingFraction} size={64} stroke={6} tone={tone} />
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-base font-bold tabular-nums leading-none">{days}</span>
+              <span className="mt-0.5 text-[7px] font-bold uppercase tracking-widest text-[#f2f7fc]/60">
+                days
+              </span>
+            </div>
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center justify-between gap-2">
+              <p className="shrink-0 text-[13px] font-bold">
+                {user.planMonths}-month plan
+              </p>
+              <p className="shrink-0 text-[13px] font-bold tabular-nums text-[#8ecdf0]">
+                {countdown.d}d {pad(countdown.h)}h {pad(countdown.m)}m {pad(countdown.s)}s
+              </p>
+            </div>
+            <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15">
+              <div
+                className="h-full rounded-full bg-[#8ecdf0] transition-[width] duration-500 ease-out"
+                style={{ width: `${Math.round(planProgress(user) * 100)}%` }}
+              />
+            </div>
+            <p className="mt-1.5 truncate text-[11px] font-medium text-[#f2f7fc]/55">
+              {formatDate(user.startedAt)} → {formatDate(user.expiresAt)} ·{' '}
+              {Math.round(planProgress(user) * 100)}% used
+            </p>
+          </div>
         </div>
       </section>
     </div>
