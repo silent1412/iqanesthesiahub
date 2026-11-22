@@ -81,9 +81,9 @@ export default function Dashboard() {
       )}
 
       {/* Subscription card — Apple Fitness-style ring card */}
-      <section className="rounded-3xl bg-[#1c3a13] p-6 text-[#f6f6f4] shadow-lg shadow-[#1c3a13]/20 md:p-8">
+      <section className="rounded-3xl bg-[#0a355e] p-6 text-[#f2f7fc] shadow-lg shadow-[#0a355e]/20 md:p-8">
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-bold uppercase tracking-widest text-[#9dc98a]">
+          <p className="text-[11px] font-bold uppercase tracking-widest text-[#8ecdf0]">
             {user.planMonths}-month membership
           </p>
           <span className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider">
@@ -96,7 +96,7 @@ export default function Dashboard() {
             <CountdownRing fraction={remainingFraction} size={112} stroke={9} tone={tone} />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-[28px] font-bold tabular-nums leading-none">{days}</span>
-              <span className="mt-1 text-[9px] font-bold uppercase tracking-widest text-[#f6f6f4]/60">
+              <span className="mt-1 text-[9px] font-bold uppercase tracking-widest text-[#f2f7fc]/60">
                 days left
               </span>
             </div>
@@ -105,16 +105,16 @@ export default function Dashboard() {
             <p className="text-[22px] font-bold tabular-nums tracking-tight md:text-2xl">
               {countdown.d}d {pad(countdown.h)}h {pad(countdown.m)}m {pad(countdown.s)}s
             </p>
-            <p className="mt-1 text-[13px] font-medium text-[#f6f6f4]/60">
+            <p className="mt-1 text-[13px] font-medium text-[#f2f7fc]/60">
               Live countdown to expiry
             </p>
             <div className="mt-4 h-1.5 w-full max-w-44 overflow-hidden rounded-full bg-white/15">
               <div
-                className="h-full rounded-full bg-[#9dc98a] transition-[width] duration-500 ease-out"
+                className="h-full rounded-full bg-[#8ecdf0] transition-[width] duration-500 ease-out"
                 style={{ width: `${Math.round(planProgress(user) * 100)}%` }}
               />
             </div>
-            <p className="mt-1.5 text-[11px] font-semibold text-[#f6f6f4]/50">
+            <p className="mt-1.5 text-[11px] font-semibold text-[#f2f7fc]/50">
               {Math.round(planProgress(user) * 100)}% of {totalDays} days used
             </p>
           </div>
@@ -122,13 +122,13 @@ export default function Dashboard() {
 
         <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-5">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[#f6f6f4]/45">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#f2f7fc]/45">
               Started
             </p>
             <p className="mt-1 text-[15px] font-bold">{formatDate(user.startedAt)}</p>
           </div>
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-[#f6f6f4]/45">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#f2f7fc]/45">
               Expires
             </p>
             <p className="mt-1 text-[15px] font-bold">{formatDate(user.expiresAt)}</p>
@@ -152,7 +152,7 @@ export default function Dashboard() {
                   to={`/library?section=${section.id}`}
                   className="flex min-h-11 items-center gap-3.5 px-4 py-3 transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                 >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-[#1c3a13]/[0.08] text-[15px] font-extrabold text-[#2c5e1e]">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-[#0a355e]/[0.08] text-[15px] font-extrabold text-[#005eb8]">
                     {section.title
                       .split(/\s+/)
                       .slice(0, 2)

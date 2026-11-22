@@ -37,40 +37,40 @@ export default function Login() {
   return (
     <div className="flex min-h-dvh flex-col bg-background md:flex-row">
       {/* Brand panel */}
-      <section className="pt-safe relative flex flex-col justify-between bg-[#1c3a13] px-6 pb-10 md:w-[46%] md:px-12 md:py-14">
+      <section className="pt-safe relative flex flex-col justify-between bg-[#0a355e] px-6 pb-10 md:w-[46%] md:px-12 md:py-14">
         <div className="flex items-center gap-3 pt-6 md:pt-0">
-          <div className="flex size-11 items-center justify-center rounded-[12px] bg-[#f6f6f4] text-sm font-extrabold text-[#1c3a13] shadow-md">
+          <div className="flex size-11 items-center justify-center rounded-[12px] bg-[#f2f7fc] text-sm font-extrabold text-[#0a355e] shadow-md">
             IQ
           </div>
           <div className="leading-tight">
-            <p className="text-base font-bold text-[#f6f6f4]">IQ Anaesthesia Hub</p>
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#f6f6f4]/50">
+            <p className="text-base font-bold text-[#f2f7fc]">IQ Anaesthesia Hub</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#f2f7fc]/50">
               Member Portal
             </p>
           </div>
         </div>
 
         <div className="mt-12 md:mt-0">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#9dc98a]">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#8ecdf0]">
             Members only
           </p>
-          <h1 className="mt-3 max-w-md text-[34px] font-bold leading-[1.1] tracking-tight text-[#f6f6f4] md:text-5xl">
+          <h1 className="mt-3 max-w-md text-[34px] font-bold leading-[1.1] tracking-tight text-[#f2f7fc] md:text-5xl">
             One library for your entire anaesthesia practice.
           </h1>
           <ul className="mt-9 flex flex-col gap-4">
             {HIGHLIGHTS.map(({ icon: Icon, text }) => (
               <li
                 key={text}
-                className="flex items-center gap-3 text-[15px] font-medium text-[#f6f6f4]/85"
+                className="flex items-center gap-3 text-[15px] font-medium text-[#f2f7fc]/85"
               >
-                <Icon className="size-4 shrink-0 text-[#9dc98a]" strokeWidth={1.8} aria-hidden />
+                <Icon className="size-4 shrink-0 text-[#8ecdf0]" strokeWidth={1.8} aria-hidden />
                 {text}
               </li>
             ))}
           </ul>
         </div>
 
-        <p className="mt-12 text-xs font-medium text-[#f6f6f4]/40 md:mt-0">
+        <p className="mt-12 text-xs font-medium text-[#f2f7fc]/40 md:mt-0">
           6 &amp; 12-month memberships · Access managed by the hub administrator
         </p>
       </section>
@@ -122,7 +122,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="mt-2 h-[50px] cursor-pointer rounded-full bg-[#1c3a13] text-[17px] font-bold text-[#f6f6f4] transition-transform duration-150 active:scale-[0.98] md:hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              className="mt-2 h-[50px] cursor-pointer rounded-full bg-[#0a355e] text-[17px] font-bold text-[#f2f7fc] transition-transform duration-150 active:scale-[0.98] md:hover:scale-[1.01] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               Sign In
             </button>

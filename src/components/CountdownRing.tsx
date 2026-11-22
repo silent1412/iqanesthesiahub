@@ -7,7 +7,7 @@ interface CountdownRingProps {
 }
 
 const TONE_COLOR: Record<NonNullable<CountdownRingProps['tone']>, string> = {
-  active: 'stroke-[#9dc98a]',
+  active: 'stroke-[#8ecdf0]',
   expiring: 'stroke-[#e0a33e]',
   expired: 'stroke-[#d4573f]',
 }

@@ -22,7 +22,7 @@ function StatusChip({ member }: { member: Member }) {
   const status = memberStatus(member)
   const days = daysLeft(member)
   const styles: Record<string, string> = {
-    active: 'bg-[#9dc98a]/15 text-[#bfe3ae]',
+    active: 'bg-[#8ecdf0]/15 text-[#cfe8fa]',
     expiring: 'bg-[#e0a33e]/15 text-[#f0c887]',
     expired: 'bg-[#d4573f]/15 text-[#f0a495]',
     revoked: 'bg-white/10 text-white/60',
@@ -70,10 +70,10 @@ function DesktopNav() {
           to={to}
           end={end}
           className={({ isActive }) =>
-            `flex min-h-11 items-center gap-3 rounded-xl px-3.5 text-[15px] font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6f6f4] ${
+            `flex min-h-11 items-center gap-3 rounded-xl px-3.5 text-[15px] font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f2f7fc] ${
               isActive
-                ? 'bg-[#f6f6f4] text-[#1c3a13]'
-                : 'text-[#f6f6f4]/60 hover:bg-white/5 hover:text-[#f6f6f4]'
+                ? 'bg-[#f2f7fc] text-[#0a355e]'
+                : 'text-[#f2f7fc]/60 hover:bg-white/5 hover:text-[#f2f7fc]'
             }`
           }
         >
@@ -88,13 +88,13 @@ function DesktopNav() {
 function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <div className="flex items-center gap-2.5">
-      <div className="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-[#f6f6f4] text-[13px] font-extrabold tracking-tight text-[#1c3a13] shadow-sm">
+      <div className="flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-[#f2f7fc] text-[13px] font-extrabold tracking-tight text-[#0a355e] shadow-sm">
         IQ
       </div>
       {!compact && (
         <div className="leading-tight">
-          <p className="text-sm font-bold text-[#f6f6f4]">IQ Anaesthesia Hub</p>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#f6f6f4]/50">
+          <p className="text-sm font-bold text-[#f2f7fc]">IQ Anaesthesia Hub</p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#f2f7fc]/50">
             Member Portal
           </p>
         </div>
@@ -110,11 +110,11 @@ function MemberFooter() {
   return (
     <div className="rounded-2xl bg-white/[0.06] p-3.5">
       <div className="flex items-center gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#9dc98a]/20 text-xs font-bold text-[#bfe3ae]">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#8ecdf0]/20 text-xs font-bold text-[#cfe8fa]">
           {initials(user.name)}
         </div>
         <div className="min-w-0 flex-1 leading-tight">
-          <p className="truncate text-sm font-semibold text-[#f6f6f4]">{user.name}</p>
+          <p className="truncate text-sm font-semibold text-[#f2f7fc]">{user.name}</p>
           <div className="mt-1">
             <StatusChip member={user} />
           </div>
@@ -126,7 +126,7 @@ function MemberFooter() {
             logout()
             navigate('/login')
           }}
-          className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#f6f6f4]/60 transition-colors duration-200 hover:bg-white/10 hover:text-[#f6f6f4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6f6f4]"
+          className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-[#f2f7fc]/60 transition-colors duration-200 hover:bg-white/10 hover:text-[#f2f7fc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f2f7fc]"
         >
           <LogOut className="size-4" aria-hidden />
         </button>
@@ -143,7 +143,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-dvh bg-background">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col bg-[#1c3a13] p-4 md:flex">
+      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col bg-[#0a355e] p-4 md:flex">
         <div className="px-1.5 pb-6 pt-2">
           <Brand />
         </div>
@@ -154,7 +154,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Mobile top bar — translucent, iOS style */}
-      <div className="pt-safe fixed inset-x-0 top-0 z-40 bg-[#f2f2f7]/80 backdrop-blur-xl md:hidden">
+      <div className="pt-safe fixed inset-x-0 top-0 z-40 bg-[#eef3f8]/80 backdrop-blur-xl md:hidden">
         <div className="flex h-12 items-center justify-center border-b border-black/[0.06]">
           <p className="text-[17px] font-bold tracking-tight text-foreground">
             IQ Anaesthesia Hub
@@ -186,7 +186,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
               end={end}
               className={({ isActive }) =>
                 `flex min-h-12 flex-1 flex-col items-center justify-center gap-0.5 pb-0.5 pt-1.5 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring ${
-                  isActive ? 'text-[#2c5e1e]' : 'text-[#8e8e93]'
+                  isActive ? 'text-[#005eb8]' : 'text-[#8e8e93]'
                 }`
               }
             >

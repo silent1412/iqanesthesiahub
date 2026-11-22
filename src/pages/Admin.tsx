@@ -13,7 +13,7 @@ import {
 } from '@/lib/store'
 
 const STATUS_STYLE: Record<MemberStatus, string> = {
-  active: 'bg-[#34c759]/15 text-[#248a3d]',
+  active: 'bg-[#12b886]/15 text-[#0b7a5e]',
   expiring: 'bg-warning/10 text-warning',
   expired: 'bg-destructive/10 text-destructive',
   revoked: 'bg-black/[0.06] text-muted-foreground',
@@ -49,7 +49,7 @@ function MemberActions({ m, isSelf }: { m: Member; isSelf: boolean }) {
           extendMember(m.id, 6)
           toast.success(`${m.name} extended by 6 months`)
         }}
-        className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-[#1c3a13]/[0.08] px-3 text-xs font-bold text-[#2c5e1e] transition-colors hover:bg-[#1c3a13]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full bg-[#0a355e]/[0.08] px-3 text-xs font-bold text-[#005eb8] transition-colors hover:bg-[#0a355e]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
         <RotateCcw className="size-3.5" aria-hidden />
         +6 months
@@ -172,7 +172,7 @@ function MembersTab() {
         </div>
         <button
           type="submit"
-          className="mt-4 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#1c3a13] text-[15px] font-bold text-[#f6f6f4] transition-transform duration-150 active:scale-[0.98] md:w-auto md:px-6 md:hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="mt-4 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0a355e] text-[15px] font-bold text-[#f2f7fc] transition-transform duration-150 active:scale-[0.98] md:w-auto md:px-6 md:hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           <Plus className="size-4" aria-hidden />
           Add member
@@ -339,7 +339,7 @@ function LinksTab() {
                         type="button"
                         onClick={() => save(item.id, item.title)}
                         disabled={!dirty}
-                        className="h-10 shrink-0 cursor-pointer rounded-full bg-[#1c3a13] px-4 text-xs font-bold text-[#f6f6f4] transition-all duration-150 enabled:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        className="h-10 shrink-0 cursor-pointer rounded-full bg-[#0a355e] px-4 text-xs font-bold text-[#f2f7fc] transition-all duration-150 enabled:active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                       >
                         Save
                       </button>
@@ -379,7 +379,7 @@ export default function Admin() {
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4">
         {(
           [
-            ['Active', stats.active, 'text-[#248a3d]'],
+            ['Active', stats.active, 'text-[#0b7a5e]'],
             ['Expiring', stats.expiring, 'text-warning'],
             ['Expired', stats.expired, 'text-destructive'],
             ['Revoked', stats.revoked, 'text-muted-foreground'],

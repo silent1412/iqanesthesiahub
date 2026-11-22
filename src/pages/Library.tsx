@@ -84,7 +84,7 @@ export default function Library() {
             <button
               type="button"
               onClick={() => setParams({})}
-              className="h-9 shrink-0 cursor-pointer rounded-full bg-[#1c3a13]/[0.08] px-3.5 text-[13px] font-bold text-[#2c5e1e] transition-colors hover:bg-[#1c3a13]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              className="h-9 shrink-0 cursor-pointer rounded-full bg-[#0a355e]/[0.08] px-3.5 text-[13px] font-bold text-[#005eb8] transition-colors hover:bg-[#0a355e]/[0.14] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               Show all
             </button>
@@ -120,7 +120,7 @@ export default function Library() {
           <button
             type="button"
             onClick={() => setQuery('')}
-            className="mt-5 h-11 cursor-pointer rounded-full bg-[#1c3a13] px-5 text-sm font-bold text-[#f6f6f4] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="mt-5 h-11 cursor-pointer rounded-full bg-[#0a355e] px-5 text-sm font-bold text-[#f2f7fc] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             Clear search
           </button>
@@ -144,7 +144,7 @@ export default function Library() {
                         className="group flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] md:hover:bg-black/[0.03] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                       >
                         <Icon
-                          className="size-[18px] shrink-0 text-[#2c5e1e]"
+                          className="size-[18px] shrink-0 text-[#005eb8]"
                           strokeWidth={1.8}
                           aria-hidden
                         />
@@ -198,7 +198,7 @@ export default function Library() {
                     href={selectedUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-[#1c3a13] text-[15px] font-bold text-[#f6f6f4] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    className="flex h-12 items-center justify-center gap-2 rounded-full bg-[#0a355e] text-[15px] font-bold text-[#f2f7fc] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                   >
                     <ExternalLink className="size-4" aria-hidden />
                     Open in Google Drive

@@ -4,36 +4,36 @@
 
 @layer base {
   :root {
-    --background: 240 11% 96%;        /* iOS systemGroupedBackground #f2f2f7 */
-    --foreground: 240 4% 11%;         /* iOS label #1c1c1e */
+    --background: 209 33% 96%;        /* cool clinical light #eef3f8 */
+    --foreground: 211 60% 11%;        /* deep navy ink */
     --card: 0 0% 100%;
-    --card-foreground: 240 4% 11%;
+    --card-foreground: 211 60% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 4% 11%;
-    --primary: 106 51% 15%;           /* brand forest #1c3a13 */
-    --primary-foreground: 60 9% 96%;
-    --secondary: 240 5% 92%;          /* iOS tertiary fill */
-    --secondary-foreground: 240 4% 11%;
-    --muted: 240 5% 93%;
-    --muted-foreground: 240 2% 57%;   /* iOS secondary label #8e8e93 */
-    --accent: 240 5% 92%;
-    --accent-foreground: 240 4% 11%;
+    --popover-foreground: 211 60% 11%;
+    --primary: 209 81% 20%;           /* deep medical navy #0a355e */
+    --primary-foreground: 208 60% 97%;
+    --secondary: 210 30% 93%;
+    --secondary-foreground: 209 81% 20%;
+    --muted: 210 28% 93%;
+    --muted-foreground: 213 16% 45%;  /* slate blue-gray */
+    --accent: 209 40% 92%;
+    --accent-foreground: 209 81% 20%;
     --destructive: 3 100% 59%;        /* iOS system red */
     --destructive-foreground: 0 0% 100%;
     --warning: 35 100% 42%;           /* iOS-ish orange */
     --warning-foreground: 48 60% 97%;
-    --border: 240 5% 88%;             /* iOS separator-ish */
-    --input: 240 5% 85%;
-    --ring: 106 51% 22%;
+    --border: 209 26% 86%;
+    --input: 209 22% 82%;
+    --ring: 206 90% 40%;              /* medical blue #005eb8 */
     --radius: 1rem;
-    --sidebar-background: 106 51% 15%;
-    --sidebar-foreground: 60 9% 88%;
-    --sidebar-primary: 60 9% 96%;
-    --sidebar-primary-foreground: 106 51% 15%;
-    --sidebar-accent: 106 40% 22%;
-    --sidebar-accent-foreground: 60 9% 96%;
-    --sidebar-border: 106 35% 25%;
-    --sidebar-ring: 60 9% 96%;
+    --sidebar-background: 209 81% 20%;
+    --sidebar-foreground: 208 45% 90%;
+    --sidebar-primary: 208 60% 97%;
+    --sidebar-primary-foreground: 209 81% 20%;
+    --sidebar-accent: 209 60% 28%;
+    --sidebar-accent-foreground: 208 60% 97%;
+    --sidebar-border: 209 50% 30%;
+    --sidebar-ring: 208 60% 97%;
   }
 }
 
