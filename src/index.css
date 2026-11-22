@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 11% 96%;        /* iOS systemGroupedBackground #f2f2f7 */
+    --foreground: 240 4% 11%;         /* iOS label #1c1c1e */
+    --card: 0 0% 100%;
+    --card-foreground: 240 4% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 4% 11%;
+    --primary: 106 51% 15%;           /* brand forest #1c3a13 */
+    --primary-foreground: 60 9% 96%;
+    --secondary: 240 5% 92%;          /* iOS tertiary fill */
+    --secondary-foreground: 240 4% 11%;
+    --muted: 240 5% 93%;
+    --muted-foreground: 240 2% 57%;   /* iOS secondary label #8e8e93 */
+    --accent: 240 5% 92%;
+    --accent-foreground: 240 4% 11%;
+    --destructive: 3 100% 59%;        /* iOS system red */
+    --destructive-foreground: 0 0% 100%;
+    --warning: 35 100% 42%;           /* iOS-ish orange */
+    --warning-foreground: 48 60% 97%;
+    --border: 240 5% 88%;             /* iOS separator-ish */
+    --input: 240 5% 85%;
+    --ring: 106 51% 22%;
+    --radius: 1rem;
+    --sidebar-background: 106 51% 15%;
+    --sidebar-foreground: 60 9% 88%;
+    --sidebar-primary: 60 9% 96%;
+    --sidebar-primary-foreground: 106 51% 15%;
+    --sidebar-accent: 106 40% 22%;
+    --sidebar-accent-foreground: 60 9% 96%;
+    --sidebar-border: 106 35% 25%;
+    --sidebar-ring: 60 9% 96%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+      "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  /* iOS continuous-corner feel for grouped cards */
+  .ios-card {
+    border-radius: 1.25rem;
+    background: hsl(var(--card));
+    box-shadow: 0 0.5px 1px rgb(0 0 0 / 0.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
