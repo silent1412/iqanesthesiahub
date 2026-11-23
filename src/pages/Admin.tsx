@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react'
 import { toast } from 'sonner'
 import { CircleCheck, Link2, Plus, RotateCcw, Trash2, UserX } from 'lucide-react'
-import { LIBRARY_SECTIONS } from '@/lib/content'
+import { itemUrl, LIBRARY_SECTIONS } from '@/lib/content'
 import {
   daysLeft,
   formatDate,
@@ -306,7 +306,7 @@ function LinksTab() {
           <div className="ios-card mt-2 overflow-hidden">
             <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
               {section.items.map((item) => {
-                const saved = links[item.id] ?? ''
+                const saved = itemUrl(item, links) ?? ''
                 const draft = drafts[item.id] ?? saved
                 const dirty = draft.trim() !== saved
                 return (

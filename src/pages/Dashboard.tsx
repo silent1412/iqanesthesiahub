@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { ChevronRight, TriangleAlert } from 'lucide-react'
 import CountdownRing from '@/components/CountdownRing'
-import { LIBRARY_SECTIONS } from '@/lib/content'
+import { itemUrl, LIBRARY_SECTIONS } from '@/lib/content'
 import {
   daysLeft,
   formatDate,
@@ -49,7 +49,7 @@ export default function Dashboard() {
   const firstName = user.name.replace(/^Dr\.\s*/i, '').split(/\s+/)[0]
   const totalItems = LIBRARY_SECTIONS.reduce((n, s) => n + s.items.length, 0)
   const linkedItems = LIBRARY_SECTIONS.reduce(
-    (n, s) => n + s.items.filter((i) => links[i.id]).length,
+    (n, s) => n + s.items.filter((i) => itemUrl(i, links)).length,
     0,
   )
 
@@ -103,7 +103,7 @@ export default function Dashboard() {
                     </span>
                     <span className="block truncate text-[13px] font-medium text-muted-foreground">
                       {section.items.length} items
-                      {section.items.some((i) => !links[i.id]) ? ' · links pending' : ''}
+                      {section.items.some((i) => !itemUrl(i, links)) ? ' · links pending' : ''}
                     </span>
                   </span>
                   <ChevronRight className="size-4 shrink-0 text-muted-foreground/70" aria-hidden />

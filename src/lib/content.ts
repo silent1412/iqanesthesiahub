@@ -6,6 +6,10 @@ export interface LibraryItem {
   kind: ItemKind
   meta: string
   description: string
+  /** Built-in content URL (PDF bundled with the app). Admin links override this. */
+  url?: string
+  /** Cover image path (bundled). */
+  cover?: string
 }
 
 export interface LibrarySection {
@@ -15,202 +19,149 @@ export interface LibrarySection {
   items: LibraryItem[]
 }
 
+const PDF_DIR = '/library/pdfs'
+const COVER_DIR = '/library/covers'
+
+function book(
+  slug: string,
+  title: string,
+  pages: number,
+  description: string,
+): LibraryItem {
+  return {
+    id: slug,
+    title,
+    kind: 'PDF',
+    meta: `PDF · ${pages} pages`,
+    description,
+    url: `${PDF_DIR}/${slug}.pdf`,
+    cover: `${COVER_DIR}/${slug}.jpg`,
+  }
+}
+
 export const LIBRARY_SECTIONS: LibrarySection[] = [
   {
-    id: 'foundations',
-    title: 'Foundations of Anaesthesia',
-    blurb: 'Core reading for daily practice and exam preparation.',
+    id: 'core-volumes',
+    title: 'Core Volumes',
+    blurb: 'The Complete Anesthesia & Perioperative Care Library — Volumes 1–8.',
     items: [
-      {
-        id: 'f-preop',
-        title: 'Pre-operative Assessment Checklist',
-        kind: 'PDF',
-        meta: 'PDF · 12 pages',
-        description:
-          'Structured pre-anaesthetic evaluation: airway, cardiorespiratory risk, fasting status, medication reconciliation and consent checkpoints.',
-      },
-      {
-        id: 'f-airway',
-        title: 'Airway Management Fundamentals',
-        kind: 'PDF',
-        meta: 'PDF · 28 pages',
-        description:
-          'Anatomy, assessment scores, basic and advanced airway techniques, and the stepwise approach to the unanticipated difficult airway.',
-      },
-      {
-        id: 'f-pharm',
-        title: 'Pharmacology: Induction & Maintenance Agents',
-        kind: 'PDF',
-        meta: 'PDF · 34 pages',
-        description:
-          'Mechanisms, dosing, onset and offset profiles of intravenous and volatile agents, opioids, and neuromuscular blockers with reversal.',
-      },
-      {
-        id: 'f-monitoring',
-        title: 'Standards of Monitoring',
-        kind: 'PDF',
-        meta: 'PDF · 9 pages',
-        description:
-          'Minimum monitoring standards for general, regional and sedation cases, including capnography, neuromuscular and depth-of-anaesthesia monitoring.',
-      },
+      book(
+        'volume-1-foundations',
+        'Volume 1 · Foundations of Anesthesia & Applied Physiology',
+        20,
+        'Essential principles for understanding anesthesia and perioperative care.',
+      ),
+      book(
+        'volume-2-pre-anesthesia-assessment',
+        'Volume 2 · Pre-Anesthesia Assessment & Perioperative Planning',
+        20,
+        'Structured pre-anesthesia evaluation and perioperative planning.',
+      ),
+      book(
+        'volume-3-pharmacology',
+        'Volume 3 · Pharmacology & Anesthetic Drugs',
+        20,
+        'Anesthetic drug pharmacology and perioperative medication management.',
+      ),
+      book(
+        'volume-4-airway-management',
+        'Volume 4 · Airway Management, Oxygenation & Ventilation',
+        20,
+        'Airway assessment, management techniques, oxygenation and ventilation.',
+      ),
+      book(
+        'volume-5-general-anesthesia',
+        'Volume 5 · General Anesthesia & Anesthesia Equipment',
+        20,
+        'General anesthesia techniques and the anesthesia workstation.',
+      ),
+      book(
+        'volume-6-regional-anesthesia',
+        'Volume 6 · Regional Anesthesia & Pain Management',
+        20,
+        'Neuraxial and peripheral nerve blocks, and acute pain management.',
+      ),
+      book(
+        'volume-7-monitoring-safety',
+        'Volume 7 · Monitoring, Patient Safety & Intraoperative Care',
+        20,
+        'Intraoperative monitoring standards and patient safety practice.',
+      ),
+      book(
+        'volume-8-emergencies-recovery',
+        'Volume 8 · Anesthetic Emergencies, Recovery & Post-Anesthesia Care',
+        20,
+        'Crisis management, emergence, recovery and post-anesthesia care.',
+      ),
     ],
   },
   {
-    id: 'question-bank',
-    title: 'Question Bank & Mock Exams',
-    blurb: 'Timed practice sets modelled on primary and final exam formats.',
+    id: 'advanced-companions',
+    title: 'Advanced Companions',
+    blurb: 'In-depth companions for regional, subspecialty and case-based practice.',
     items: [
-      {
-        id: 'q-physiology',
-        title: 'MCQ Set 1: Physiology',
-        kind: 'Quiz',
-        meta: 'Quiz · 60 questions · 90 min',
-        description:
-          'Cardiovascular, respiratory and renal physiology with single-best-answer questions and referenced explanations.',
-      },
-      {
-        id: 'q-pharmacology',
-        title: 'MCQ Set 2: Pharmacology',
-        kind: 'Quiz',
-        meta: 'Quiz · 60 questions · 90 min',
-        description:
-          'Pharmacokinetics, pharmacodynamics and applied clinical pharmacology of anaesthetic and peri-operative drugs.',
-      },
-      {
-        id: 'q-mock-primary',
-        title: 'Mock Exam: Primary Style',
-        kind: 'Quiz',
-        meta: 'Quiz · 90 questions · 3 hours',
-        description:
-          'Full-length timed mock covering physiology, pharmacology, physics and clinical measurement under exam conditions.',
-      },
+      book(
+        'advanced-regional-anesthesia',
+        'Advanced Regional Anesthesia & Ultrasound Anatomy',
+        67,
+        'Ten chapters: regional anesthesia foundations, ultrasound fundamentals, recognizing anatomy on ultrasound, and upper extremity blocks.',
+      ),
+      book(
+        'clinical-reasoning-casebook',
+        'Anesthesia Clinical Reasoning Casebook',
+        159,
+        'Twenty-two chapters of case-based reasoning — from the basic anesthesia plan to the difficult airway and the cardiac patient.',
+      ),
+      book(
+        'specialty-anesthesia-library',
+        'Specialty Anesthesia Library',
+        82,
+        'Ten chapters covering pediatric, obstetric and geriatric anesthesia and other subspecialty situations.',
+      ),
     ],
   },
   {
-    id: 'guidelines',
-    title: 'Guidelines & Protocols',
-    blurb: 'Current society guidelines and local theatre protocols.',
+    id: 'quick-reference-tools',
+    title: 'Quick Reference Tools',
+    blurb: 'Bonus practical tools — at-a-glance references for the theatre.',
     items: [
-      {
-        id: 'g-das',
-        title: 'Difficult Airway Guidelines',
-        kind: 'PDF',
-        meta: 'PDF · 16 pages',
-        description:
-          'Unanticipated difficult intubation algorithm, wake-up criteria, front-of-neck access and human-factors considerations.',
-      },
-      {
-        id: 'g-fasting',
-        title: 'Peri-operative Fasting Guidelines',
-        kind: 'PDF',
-        meta: 'PDF · 6 pages',
-        description:
-          'Fasting intervals for clear fluids, breast milk, light meals and fried food in adults, children and pregnancy.',
-      },
-      {
-        id: 'g-mh',
-        title: 'Malignant Hyperthermia Protocol',
-        kind: 'PDF',
-        meta: 'PDF · 4 pages',
-        description:
-          'Recognition, immediate management, dantrolene dosing and post-crisis care of malignant hyperthermia.',
-      },
-      {
-        id: 'g-last',
-        title: 'Local Anaesthetic Systemic Toxicity (LAST)',
-        kind: 'PDF',
-        meta: 'PDF · 5 pages',
-        description:
-          'Maximum dose tables, early signs of toxicity, lipid emulsion therapy protocol and arrest modifications.',
-      },
-    ],
-  },
-  {
-    id: 'webinars',
-    title: 'Recorded Webinars',
-    blurb: 'Full recordings of past teaching sessions and guest lectures.',
-    items: [
-      {
-        id: 'w-regional',
-        title: 'Regional Blocks: Upper Limb',
-        kind: 'Video',
-        meta: 'Video · 58 min',
-        description:
-          'Ultrasound-guided interscalene, supraclavicular and axillary blocks: sonoanatomy, needle approach and complications.',
-      },
-      {
-        id: 'w-obstetric',
-        title: 'Obstetric Anaesthesia Update',
-        kind: 'Video',
-        meta: 'Video · 64 min',
-        description:
-          'Neuraxial labour analgesia, anaesthesia for caesarean section, and management of obstetric haemorrhage and pre-eclampsia.',
-      },
-      {
-        id: 'w-paeds',
-        title: 'Paediatric Anaesthesia Essentials',
-        kind: 'Video',
-        meta: 'Video · 52 min',
-        description:
-          'Airway differences, weight-based dosing, fluid management and peri-operative anxiety in children.',
-      },
-    ],
-  },
-  {
-    id: 'cases',
-    title: 'Case Discussions',
-    blurb: 'Real cases with structured debriefs and teaching points.',
-    items: [
-      {
-        id: 'c-anaphylaxis',
-        title: 'Anaphylaxis on Induction',
-        kind: 'Folder',
-        meta: 'Case · 12 min read',
-        description:
-          'Rocuronium-induced anaphylaxis: recognition, adrenaline dosing, tryptase sampling and follow-up allergy testing.',
-      },
-      {
-        id: 'c-cico',
-        title: "Can't Intubate, Can't Oxygenate",
-        kind: 'Folder',
-        meta: 'Case · 10 min read',
-        description:
-          'Progression through the emergency airway algorithm to front-of-neck access, with timeline and team communication analysis.',
-      },
-      {
-        id: 'c-haemorrhage',
-        title: 'Major Haemorrhage in Theatre',
-        kind: 'Folder',
-        meta: 'Case · 14 min read',
-        description:
-          'Activation of the major haemorrhage protocol, massive transfusion ratios, viscoelastic testing and damage-control resuscitation.',
-      },
-    ],
-  },
-  {
-    id: 'quick-reference',
-    title: 'Quick Reference Cards',
-    blurb: 'Pocket cards for the theatre wall and your phone.',
-    items: [
-      {
-        id: 'r-drugs',
-        title: 'Drug Dose Card',
-        kind: 'PDF',
-        meta: 'PDF · 2 pages',
-        description:
-          'Single-sheet dosing reference for induction agents, opioids, muscle relaxants, vasopressors and emergency drugs.',
-      },
-      {
-        id: 'r-crisis',
-        title: 'Crisis Checklist',
-        kind: 'PDF',
-        meta: 'PDF · 2 pages',
-        description:
-          'Cognitive aids for cardiac arrest, anaphylaxis, LAST, malignant hyperthermia and failed intubation.',
-      },
+      book(
+        'bonus-1',
+        'Anesthesia Drug Quick Reference',
+        10,
+        'Essential drug classes, mechanisms and perioperative effects at a glance. Practical Reference Tool #1.',
+      ),
+      book(
+        'bonus-2',
+        'Airway Management Visual Guide',
+        10,
+        'Anatomy, devices, oxygenation and ventilation at a glance. Practical Reference Tool #2.',
+      ),
+      book(
+        'bonus-3',
+        'Anesthesia Emergencies Quick Reference',
+        10,
+        'Recognition patterns, cause categories and crisis awareness at a glance. Practical Reference Tool #3.',
+      ),
+      book(
+        'bonus-4',
+        'Monitoring & Vital Parameters Quick Guide',
+        10,
+        'Waveforms, physiologic signals and intraoperative monitoring at a glance. Practical Reference Tool #4.',
+      ),
+      book(
+        'bonus-5',
+        'Perioperative Checklists & Reference Sheets',
+        10,
+        'Structured review tools from pre-anesthesia assessment to PACU handoff. Practical Reference Tool #5.',
+      ),
     ],
   },
 ]
+
+export function itemUrl(item: LibraryItem, links: Record<string, string>): string | undefined {
+  return links[item.id] ?? item.url
+}
 
 export function allItems(): (LibraryItem & { sectionId: string })[] {
   return LIBRARY_SECTIONS.flatMap((s) =>

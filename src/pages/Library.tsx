@@ -19,7 +19,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
-import { LIBRARY_SECTIONS, type ItemKind, type LibraryItem } from '@/lib/content'
+import {
+  itemUrl,
+  LIBRARY_SECTIONS,
+  type ItemKind,
+  type LibraryItem,
+} from '@/lib/content'
 import { useAuth } from '@/lib/store'
 
 const KIND_ICON: Record<ItemKind, LucideIcon> = {
@@ -32,7 +37,7 @@ const KIND_ICON: Record<ItemKind, LucideIcon> = {
 
 function KindBadge({ kind }: { kind: ItemKind }) {
   return (
-    <span className="inline-flex shrink-0 items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-secondary-foreground">
+    <span className="inline-flex shrink-0 items-center rounded-full bg-black/[0.05] dark:bg-white/[0.09] px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
       {kind}
     </span>
   )
@@ -71,7 +76,7 @@ export default function Library() {
     ? LIBRARY_SECTIONS.find((s) => s.id === sectionFilter)
     : null
 
-  const selectedUrl = selected ? links[selected.id] : undefined
+  const selectedUrl = selected ? itemUrl(selected, links) : undefined
 
   return (
     <div className="flex flex-col gap-5">
@@ -126,60 +131,107 @@ export default function Library() {
           </button>
         </div>
       ) : (
-        filtered.map((section) => (
-          <section key={section.id} id={`section-${section.id}`} className="scroll-mt-24">
-            <h2 className="px-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {section.title}
-            </h2>
-            <div className="ios-card mt-2 overflow-hidden">
-              <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
-                {section.items.map((item) => {
-                  const Icon = KIND_ICON[item.kind]
-                  const url = links[item.id]
-                  return (
+        filtered.map((section) => {
+          const withCovers = section.items.some((i) => i.cover)
+          return (
+            <section key={section.id} id={`section-${section.id}`} className="scroll-mt-24">
+              <div className="flex items-baseline justify-between gap-3 px-1">
+                <h2 className="text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  {section.title}
+                </h2>
+                <span className="shrink-0 text-[11px] font-semibold text-muted-foreground">
+                  {section.items.length} item{section.items.length === 1 ? '' : 's'}
+                </span>
+              </div>
+
+              {withCovers ? (
+                /* Book grid with covers */
+                <ul className="mt-2.5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {section.items.map((item) => (
                     <li key={item.id}>
                       <button
                         type="button"
                         onClick={() => setSelected(item)}
-                        className="group flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+                        className="group flex w-full cursor-pointer flex-col text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                       >
-                        <Icon
-                          className="size-[18px] shrink-0 text-[#005eb8] dark:text-[#5eb3f6]"
-                          strokeWidth={1.8}
-                          aria-hidden
-                        />
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[15px] font-semibold text-foreground">
-                            {item.title}
-                          </span>
-                          <span className="mt-px block truncate text-[13px] font-medium text-muted-foreground">
-                            {item.meta}
-                            {!url && <span className="text-warning"> · link pending</span>}
-                          </span>
-                        </span>
-                        <ChevronRight
-                          className="size-4 shrink-0 text-muted-foreground/70"
-                          aria-hidden
-                        />
+                        <div className="relative overflow-hidden rounded-xl border border-black/[0.06] dark:border-white/[0.10] shadow-sm transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:shadow-md">
+                          <img
+                            src={item.cover}
+                            alt={`Cover of ${item.title}`}
+                            loading="lazy"
+                            className="aspect-[9/16] w-full object-cover"
+                          />
+                        </div>
+                        <p className="mt-2 line-clamp-2 px-0.5 text-[13px] font-bold leading-snug text-foreground">
+                          {item.title}
+                        </p>
+                        <p className="mt-0.5 px-0.5 text-[11px] font-medium text-muted-foreground">
+                          {item.meta}
+                        </p>
                       </button>
                     </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </section>
-        ))
+                  ))}
+                </ul>
+              ) : (
+                /* Grouped rows */
+                <div className="ios-card mt-2 overflow-hidden">
+                  <ul className="divide-y divide-black/[0.06] dark:divide-white/[0.08]">
+                    {section.items.map((item) => {
+                      const Icon = KIND_ICON[item.kind]
+                      const url = itemUrl(item, links)
+                      return (
+                        <li key={item.id}>
+                          <button
+                            type="button"
+                            onClick={() => setSelected(item)}
+                            className="flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors duration-150 active:bg-black/[0.04] dark:active:bg-white/[0.08] md:hover:bg-black/[0.03] dark:md:hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
+                          >
+                            <Icon
+                              className="size-[18px] shrink-0 text-[#005eb8] dark:text-[#5eb3f6]"
+                              strokeWidth={1.8}
+                              aria-hidden
+                            />
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate text-[15px] font-semibold text-foreground">
+                                {item.title}
+                              </span>
+                              <span className="mt-px block truncate text-[13px] font-medium text-muted-foreground">
+                                {item.meta}
+                                {!url && <span className="text-warning"> · link pending</span>}
+                              </span>
+                            </span>
+                            <ChevronRight
+                              className="size-4 shrink-0 text-muted-foreground/70"
+                              aria-hidden
+                            />
+                          </button>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
+            </section>
+          )
+        })
       )}
 
       {/* Item detail sheet */}
       <Sheet open={selected !== null} onOpenChange={(open) => !open && setSelected(null)}>
         <SheetContent
           side="right"
-          className="flex w-full flex-col border-l-0 bg-white dark:bg-[#101c2a] p-6 pt-safe sm:max-w-md"
+          className="flex w-full flex-col overflow-y-auto border-l-0 bg-white dark:bg-[#101c2a] p-6 pt-safe sm:max-w-md"
         >
           {selected && (
             <>
-              <SheetHeader className="text-left">
+              {selected.cover && (
+                <img
+                  src={selected.cover}
+                  alt={`Cover of ${selected.title}`}
+                  className="w-36 self-center rounded-xl border border-black/[0.06] dark:border-white/[0.10] shadow-md"
+                />
+              )}
+              <SheetHeader className="mt-5 text-left">
                 <div className="flex items-center gap-2">
                   <KindBadge kind={selected.kind} />
                   <span className="text-xs font-medium text-muted-foreground">{selected.meta}</span>
@@ -201,7 +253,7 @@ export default function Library() {
                     className="flex h-12 items-center justify-center gap-2 rounded-full bg-[#0a355e] text-[15px] font-bold text-[#f2f7fc] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                   >
                     <ExternalLink className="size-4" aria-hidden />
-                    Open in Google Drive
+                    Open PDF
                   </a>
                 ) : (
                   <div className="rounded-xl border border-dashed border-warning/50 bg-warning/10 px-4 py-3.5">
